@@ -1,0 +1,11 @@
+C:\towers-of-hanoi\bin\Debug\netcoreapp2.1\towers-of-hanoi.deps.json
+C:\towers-of-hanoi\bin\Debug\netcoreapp2.1\towers-of-hanoi.runtimeconfig.json
+C:\towers-of-hanoi\bin\Debug\netcoreapp2.1\towers-of-hanoi.runtimeconfig.dev.json
+C:\towers-of-hanoi\bin\Debug\netcoreapp2.1\towers-of-hanoi.dll
+C:\towers-of-hanoi\bin\Debug\netcoreapp2.1\towers-of-hanoi.pdb
+C:\towers-of-hanoi\obj\Debug\netcoreapp2.1\towers-of-hanoi.csprojAssemblyReference.cache
+C:\towers-of-hanoi\obj\Debug\netcoreapp2.1\towers-of-hanoi.csproj.CoreCompileInputs.cache
+C:\towers-of-hanoi\obj\Debug\netcoreapp2.1\towers-of-hanoi.AssemblyInfoInputs.cache
+C:\towers-of-hanoi\obj\Debug\netcoreapp2.1\towers-of-hanoi.AssemblyInfo.cs
+C:\towers-of-hanoi\obj\Debug\netcoreapp2.1\towers-of-hanoi.dll
+C:\towers-of-hanoi\obj\Debug\netcoreapp2.1\towers-of-hanoi.pdb
