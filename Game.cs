@@ -1,26 +1,29 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace towers_of_hanoi
 {
     class Game
     {
         public Dictionary<string, Tower> Towers = new Dictionary<string, Tower>();
+        public int Moves { get; set; }
 
-        public ICollection startingBlocks = new List<Block>{new Block(4), new Block(3), new Block(2), new Block(1)};
-        public Game()
+        public Game(List<Block> startingBlocks, int moves)
         {
-            Towers["A"] = new Tower(new Stack(startingBlocks));
-            Towers["B"] = new Tower(new Stack());
-            Towers["C"] = new Tower(new Stack());
+            Towers["A"] = new Tower(new Stack<Block>(startingBlocks));
+            Towers["B"] = new Tower(new Stack<Block>());
+            Towers["C"] = new Tower(new Stack<Block>());
+
+            this.Moves = moves;
         }
 
         public void PrintBoard()
         {
+            System.Console.WriteLine("Move: " + Moves);
             foreach (KeyValuePair<string, Tower> kvp in Towers)
             {
-                Stack blocks = new Stack();
+                Stack<Block> blocks = new Stack<Block>();
 
                 while(kvp.Value.Blocks.Count !=0)
                 {
@@ -34,13 +37,21 @@ namespace towers_of_hanoi
                 }
 
                 System.Console.WriteLine();
+
+                while(blocks.Count!=0)
+                {
+                    kvp.Value.Blocks.Push(blocks.Pop());
+                }
             }
+            Moves++;
+            System.Console.WriteLine();
+            Thread.Sleep(1000);
         }
 
         public void MovePiece(string towerFrom, string towerTo)
         {
-            Stack toPop = new Stack();
-            Stack toPush = new Stack();
+            Stack<Block> toPop = new Stack<Block>();
+            Stack<Block> toPush = new Stack<Block>();
 
             foreach (KeyValuePair<string, Tower> kvp in Towers)
             {
@@ -64,7 +75,7 @@ namespace towers_of_hanoi
             }
         }
 
-        public bool IsLegal(Stack stackFrom, Stack stackTo)
+        public bool IsLegal(Stack<Block> stackFrom, Stack<Block> stackTo)
         {
             if (stackFrom.Count != 0 && stackTo.Count != 0)
             {
@@ -88,7 +99,7 @@ namespace towers_of_hanoi
         {
             foreach (KeyValuePair<string, Tower> kvp in Towers)
             { 
-                if(kvp.Value.Blocks.Count==4 && (kvp.Key == "B" || kvp.Key == "C"))
+                if(kvp.Value.Blocks.Count==Program.startingBlocks.Count && (kvp.Key == "B" || kvp.Key == "C"))
                 {
                     return true;
                 }
@@ -96,20 +107,21 @@ namespace towers_of_hanoi
             return false;
         }
 
-        public void ComputerPlays(int blockWeight, Stack fromStack, Stack toStack, Stack otherStack)
+        public void ComputerPlays(int totalBlocks, Stack<Block> fromStack, Stack<Block> toStack, Stack<Block> otherStack)
         {
-            if (blockWeight == 1)
+            if (totalBlocks == 1)
             {
                 toStack.Push(fromStack.Pop());
+                PrintBoard();
                 return;
             }
 
-            ComputerPlays(blockWeight - 1, fromStack, otherStack, toStack);
-
+            ComputerPlays(totalBlocks - 1, fromStack, otherStack, toStack);
+            
             toStack.Push(fromStack.Pop());
+            PrintBoard();
 
-            ComputerPlays(blockWeight -1, otherStack, toStack, fromStack);
-        
+            ComputerPlays(totalBlocks -1, otherStack, toStack, fromStack);
         }
     }
 }
